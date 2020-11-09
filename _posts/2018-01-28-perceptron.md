@@ -1,63 +1,93 @@
 ---
-title: "Data Wrangling Project"
-date: 2018-01-28
-tags: [data wrangling, data science, messy data]
-header:
-  image: "/images/perceptron/percept.jpg"
-excerpt: "Data Wrangling, Data Science, Messy Data"
+title: "What is Topological Data Analysis"
+date: 2020-11-08
+tags: [topology, data science, geometry]
+
+excerpt: "The Shape of Data"
 mathjax: "true"
 ---
 
-# H1 Heading
+![](https://miro.medium.com/max/852/1*DSECiuuO0qZlPlf4trrbOA.png)
+## Introduction
+Topological Data Science(TDA) has been bursting with new applications in machine learning and data science this year. 
+The central dogma of TDA is that data (even complex, and high dimensional) has an underlying shape, and understanding this shape helps to reveal
+the process used to generate it. For a great survey on TDA for data scientists, check out [[1]](https://arxiv.org/abs/1710.04019).
+One of the ways which TDA helps understand this shape is through **persistence homology**, which will be explained in this article.
+I will be using giotto-tda for calculations and examples. 
+The software is free, and instructions for downloading it are aviailable on the [giotto-tda Github page](https://github.com/giotto-ai/giotto-tda)
+along with several Jupyter notebooks highlighting some of the giotto-tda features.<br>
 
-## H2 Heading
+## Persistent Homology
+The goal of persistent homology is to determine the *true* topological descriptors of a dataset.
+As an intuitive motivation, suppose $X$ a is a set of randomly generated points in two-dimensions, such as the one below. <br>
 
-### H3 Heading
+![Noisy Circle](https://raw.githubusercontent.com/jacobbriones1/jacobbriones1.github.io/master/images/circle.png)
 
-Here's some basic text.
+Although real world data is much more complicated than this, it is helpful to understand how TDA applies to datasets which we already
+understand. We know that the data shown above, for example, is a single connected component with a single hole in the middle.
+Hence, we should be able to confirm this using persistent homology. But first, we need a few preliminary concepts from Algebraic Topology.
 
-And here's some *italics*
+### Simplicial Complexes
+Simplicial complexes are the main object of study in TDA. They are a topological space which can be thought of as higher dimensional graphs. They are composed by "*gluing together*" multiple **simplices**. <br>
+- A $k$**-simplex** is a generalization of a triangle in $k$ dimensions. 
 
-Here's some **bold** text.
+| ![a-0-simplex-b-1-simplex-c-2-simplex-and-d-3-simplex-of-R3.png](https://www.researchgate.net/profile/Francois_Cotton/publication/24238513/figure/fig4/AS:214073720479747@1428050560843/a-0-simplex-b-1-simplex-c-2-simplex-and-d-3-simplex-of-R3.png) | 
+|:--:| 
+| *(a) 0-simplex is a vertex, (b) 1-simplex is a line, (c) 2-simplex is a triangle, (d) 3-simplex is a tetrahedron* |
 
-What about a [link](https://github.com/dataoptimal)?
+Simplicies make up simplicial complexes, that is, in a *very* informal way, we can say that
 
-Here's a bulleted list:
-* First item
-+ Second item
-- Third item
+- A **simplicial complex** is a set of simplices which are "glued together".<br>
 
-Here's a numbered list:
-1. First
-2. Second
-3. Third
+I am avoiding mathematical rigor here by saying "glued together", but I think it is more useful to understand what the general *vibe* is first.
+The picture below is an example of a simplicial complex with 18 $0$-simplexes, 23 $1$-simplexes, 8 $2$-simplexes, and a single $3$-simplex
+<p align="center">
+  <img src = "https://upload.wikimedia.org/wikipedia/commons/5/50/Simplicial_complex_example.svg" height = "250" width = "250" alt>
+</p>
+Notice the way that simplices are glued together. They must be glued in a certain way. 
+To show what I mean by this without getting too technical, consider the non-example shown below.
+<p align="center">
+  <img src = "https://upload.wikimedia.org/wikipedia/commons/0/09/Simplicial_complex_nonexample.png" height = "309" width = "205" alt>
+</p>
 
-Python code block:
-```python
-    import numpy as np
+See [2](https://en.wikipedia.org/wiki/Simplicial_complex) for rigorous definitions.
+The motivation for defining simplicial complexes is that we can think of each one of our data points as a simplex, and thus by
+creating a simplicial complex from these simplices, we are able to extract meaningful topological descriptors which can reveal
+the *shape* of our dataset. <br>
+But *how do know which points in our data represent which simplexes?* And
+*how do we actually obtain a simplicial complex?*
 
-    def test_function(x, y):
-      z = np.sum(x,y)
-      return z
+It's **crucial** to keep these questions in mind as we go along, so that we don't get lost in the abstractions, and to make use of the definitons.
+
+### Vietoris–Rips complex
+We want
+
+
+### Creating a Simplicial Complex from Data
+Simplicial complexes seem rather abstract. So let's actually construct one from a dataset. 
+I will be using `giotto-tda` in python, (see [[3]](https://github.com/giotto-ai/giotto-tda)) for installation. <br>
+
+
+```
+#  Generate an example Noisy Circle X using giotto-td
+#  Clone the giotto-tda github repository to use this code snippet
+
+datapath = 'giotto-tda/examples/data/'
+sys.path.insert(1, datapath)`<br>
+from generate_datasets import make_point_clouds
+n_samples_per_class = 10
+point_clouds, labels = make_point_clouds(n_samples_per_class, 10, 0.1)
+
+X = point_clouds[0]
+X = np.array([X[:,0],X[:,1]])
 ```
 
-R code block:
-```r
-library(tidyverse)
-df <- read_csv("some_file.csv")
-head(df)
-```
+This will Generate a point cloud similar to the one above (the noisy circle).
+We want to create a simplicial complex using these data points. 
 
-Here's some inline code `x+y`.
+### References
+1. Chazal, Frédéric, and Bertrand Michel. “An Introduction to Topological Data Analysis: Fundamental and Practical Aspects for Data Scientists.” ArXiv.org, 11 Oct. 2017, arxiv.org/abs/1710.04019. <br>
 
-Here's an image:
-<img src="{{ site.url }}{{ site.baseurl }}/images/perceptron/linsep.jpg" alt="linearly separable data">
+2. https://en.wikipedia.org/wiki/Simplicial_complex <br>
 
-Here's another image using Kramdown:
-![alt]({{ site.url }}{{ site.baseurl }}/images/perceptron/linsep.jpg)
-
-Here's some math:
-
-$$z=x+y$$
-
-You can also put it inline $$z=x+y$$
+3. https://github.com/giotto-ai/giotto-tda
