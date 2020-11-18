@@ -46,6 +46,8 @@ $$
 and each row of $$E$$ is a *gene expression vector*. 
 
 ## What Does the Gene Expression Matrix Tell Us?
+We can visualize the gene expression level of each gene during the experiment, as shown below (It's common to scale the gene expression level logarithmically).
 <p align="center">
   <img src ="https://github.com/jacobbriones1/jacobbriones1.github.io/blob/master/images/singleGeneExpression.png" alt>
 </p>
+
