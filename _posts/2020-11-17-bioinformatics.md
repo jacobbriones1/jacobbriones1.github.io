@@ -56,3 +56,6 @@ In this figure, the gene expression level decreases and becomes negative after t
 Genes with similar expression vectors may imply that the genes are co-regulated, meaning that their expression is controlled by the same transcription factor. 
 So we can *cluster* together expression vectors which exhibited similar behavior during the experiment.
 *S. cerevisiae* has approximately 6,400 genes. Using the same time checkpoints, the gene expression matrix for *S. cerevisiae* will have 6,400 rows and 7 columns.
+<p align="center">
+  <img src ="https://raw.githubusercontent.com/jacobbriones1/jacobbriones1.github.io/master/images/diauxic_shiftPlot.png" alt>
+</p>
