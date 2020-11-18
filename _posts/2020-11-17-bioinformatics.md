@@ -6,6 +6,9 @@ permalink: /welovebooze/
 excerpt: "What DNA Sequences Reveal"
 mathjax: true
 ---
+<p align="center">
+  <img src="https://sayingimages.com/wp-content/uploads/drinking-shut-up-liver-meme.jpg", alt>
+ </p>
 
 # Introduction
 2020 has been one of the most stressful years of my life, and I (like many others I assume) wouldn't have been able to make it through without alcohol.
