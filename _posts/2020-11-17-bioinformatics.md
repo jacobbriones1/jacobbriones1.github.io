@@ -39,7 +39,7 @@ We have a list of yeast genes $$\{g_1,\dots,g_n\}$$, and we are going to record 
 Let $$m=\{-6,-4,-2,0,2,4,6\}$$ denote these hour checkmarks. 
 We can arrange these measurements in the form of a matrix $$E$$ , where the $$(i,j)$$-entry of $$E$$ is given by 
 $$
-\begin{eqn*}
+\begin{equation*}
 E_{i,j}=\text{gene expression level of }g_i \text{ at time j}
-\end{eqn*}
+\end{equation*}
 $$
