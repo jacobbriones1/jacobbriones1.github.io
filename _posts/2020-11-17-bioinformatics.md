@@ -7,7 +7,7 @@ excerpt: "What DNA Sequences Reveal"
 mathjax: true
 ---
 <p align="center">
-  <img src="https://sayingimages.com/wp-content/uploads/drinking-shut-up-liver-meme.jpg", alt>
+  <img src="https://sayingimages.com/wp-content/uploads/drinking-shut-up-liver-meme.jpg",height="350",width="400" alt>
  </p>
 
 # Introduction
