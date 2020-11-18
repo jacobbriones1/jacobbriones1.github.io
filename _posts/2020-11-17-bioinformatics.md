@@ -54,7 +54,8 @@ In this figure, the gene expression level decreases and becomes negative after t
 
 ## Clustering Yeast Genes
 Genes with similar expression vectors may imply that the genes are co-regulated, meaning that their expression is controlled by the same transcription factor. 
-So we can *cluster* together expression vectors which exhibited similar behavior during the experiment.
+With this fact in mind, if we *cluster* together expression vectors which exhibited similar behavior during the experiment, we can determine which genes are co-regulated.
 <p align="center">
   <img src ="https://raw.githubusercontent.com/jacobbriones1/jacobbriones1.github.io/master/images/first100.png" alt>
 </p>
+
