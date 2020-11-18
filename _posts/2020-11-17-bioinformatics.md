@@ -21,10 +21,12 @@ The answer to this question can be understood by understanding *yeast*, one of t
 In particular, we will take a look at a certain species of yeast called *Saccharomyces cerevisiae*, which is capable of brewing wine.
 
 # The Diauxic Shift
-The yeast *S. cerevisiae* often live on grapevines. It converts **glucose** found in fruit into **ethanol**.
-In hopes of understanding let us ask the following question:
-<center>
-  *Why do crushed grapes need to be stored in tightly sealed barrels in order to produce alcohol?*
-</center>
+The yeast *S. cerevisiae* often live on grapevines. 
+It converts **glucose** found in fruit into **ethanol**.
+In hopes of understanding let us ask the following question:*Why do crushed grapes need to be stored in tightly sealed barrels in order to produce alcohol?*
+More importantly, once the supply of glucose runs out, how does the *S. cerevisiae* survive? 
+It survives by *inverting* it's metabolism and using the ethanol which it produced as a source of energy. 
+Imagine if humans could do this. <br>
 
-
+This metabolic inversion is known as *diauxic shift*. 
+And the reason why crushed grapes need to be stored in tightly sealed containers is due to the fact that diauxic shift can only occur in the absence of oxygen.
