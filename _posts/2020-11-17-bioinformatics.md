@@ -30,3 +30,7 @@ Imagine if humans could do this. <br>
 
 This metabolic inversion is known as *diauxic shift*. 
 And the reason why crushed grapes need to be stored in tightly sealed containers is due to the fact that diauxic shift can only occur in the absence of oxygen.
+Neat! Are other organisms capable of this kind of metabolic inversion? No idea. 
+But one way to find out is to analyze the genes which are responsible for the diauxic shift in *S. cerevisiae*.
+
+#
