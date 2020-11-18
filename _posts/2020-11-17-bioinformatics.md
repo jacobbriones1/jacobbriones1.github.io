@@ -20,4 +20,5 @@ In fact, our interest in alcohol dates back over 6,000 years. But how did alcoho
 The answer to this question can be understood by understanding *yeast*, one of the first organisms that humans domesticated. 
 In particular, we will take a look at a certain species of yeast called *Saccharomyces cerevisiae*, which is capable of brewing wine.
 
-# 
+# The Diauxic Shift
+
