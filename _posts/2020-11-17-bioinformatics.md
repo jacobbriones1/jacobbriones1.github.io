@@ -51,4 +51,8 @@ We can visualize the gene expression level of each gene during the experiment, a
   <img src ="https://raw.githubusercontent.com/jacobbriones1/jacobbriones1.github.io/master/images/singleGeneExpression.png" alt>
 </p>
 In this figure, the gene expression level decreases and becomes negative after the shift, which implies that this shift corresponds to a decrease in the expression of this gene. Similarly, a flat curve would imply that the gene is not involved in diauxic shift, and an increasing curve shows an increase in gene expression due to diauxic shift.
-<br>
+
+## Clustering Yeast Genes
+Genes with similar expression vectors may imply that the genes are co-regulated, meaning that their expression is controlled by the same transcription factor. 
+So we can *cluster* together expression vectors which exhibited similar behavior during the experiment.
+*S. cerevisiae* has approximately 6,400 genes. Using the same time checkpoints, the gene expression matrix for *S. cerevisiae* will have 6,400 rows and 7 columns.
