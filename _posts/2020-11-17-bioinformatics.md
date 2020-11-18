@@ -37,7 +37,7 @@ But one way to find out is to analyze the genes which are responsible for the di
 Let's conduct a thought experiment. 
 We have a list of yeast genes $$\{g_1,\dots,g_n\}$$, and we are going to record the *gene expression level* of each $$g_i$$ starting six hours before the diauxic shift, and repeating the measurement every two hours until six hours after the shift has occured. 
 Let $$m=\{-6,-4,-2,0,2,4,6\}$$ denote these hour checkmarks. 
-We can arrange these measurements in the form of a matrix as follows:
+We can arrange these measurements in the form of a matrix $$E$$ , where the $$(i,j)$$-entry of $$E$$ is given by 
 $$
 E_{i,j}=\text{gene expression level of }g_i \text{ at time j}
 $$
