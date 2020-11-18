@@ -57,5 +57,5 @@ Genes with similar expression vectors may imply that the genes are co-regulated,
 So we can *cluster* together expression vectors which exhibited similar behavior during the experiment.
 *S. cerevisiae* has approximately 6,400 genes. Using the same time checkpoints, the gene expression matrix for *S. cerevisiae* will have 6,400 rows and 7 columns.
 <p align="center">
-  <img src ="https://raw.githubusercontent.com/jacobbriones1/jacobbriones1.github.io/master/images/diauxic_shiftPlot.png" alt>
+  <img src ="https://raw.githubusercontent.com/jacobbriones1/jacobbriones1.github.io/master/images/first100.png" alt>
 </p>
