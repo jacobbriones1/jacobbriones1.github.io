@@ -50,4 +50,5 @@ We can visualize the gene expression level of each gene during the experiment, a
 <p align="center">
   <img src ="https://raw.githubusercontent.com/jacobbriones1/jacobbriones1.github.io/master/images/singleGeneExpression.png" alt>
 </p>
-Here, we can see that after the diauxic shift, the gene expression level decreases, meaning th
+In this figure, the gene expression level decreases and becomes negative after the shift, which implies that this shift corresponds to a decrease in the expression of this gene. Similarly, a flat curve would imply that the gene is not involved in diauxic shift, and an increasing curve shows an increase in gene expression due to diauxic shift.
+<br>
