@@ -21,4 +21,10 @@ The answer to this question can be understood by understanding *yeast*, one of t
 In particular, we will take a look at a certain species of yeast called *Saccharomyces cerevisiae*, which is capable of brewing wine.
 
 # The Diauxic Shift
+The yeast *S. cerevisiae* often live on grapevines. It converts **glucose** found in fruit into **ethanol**.
+In hopes of understanding let us ask the following question:
+<center>
+  *Why do crushed grapes need to be stored in tightly sealed barrels in order to produce alcohol?*
+</center>
+
 
