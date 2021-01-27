@@ -13,6 +13,8 @@ In recent works, it has been shown that attentional architectures can outperform
 
 # Self-Attention and Convolution
 <p align="center">
-  *How does the Transformer operate in 2D?*
+ <it>
+ How does the Transformer operate in 2D?
+ </it>
  </p>
 
