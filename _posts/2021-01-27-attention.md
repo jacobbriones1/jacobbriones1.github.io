@@ -12,4 +12,7 @@ The [Transformer](https://arxiv.org/abs/1706.03762) introduced by Vaswani et al.
 In recent works, it has been shown that attentional architectures can outperform many state of the art models for vision tasks such as object detection, classification, masking, etc. In fact, Cordonnier et al. proved that we can simulate **any convolutional neural network** with self-attention architectures. 
 
 # Self-Attention and Convolution
+<p align="center">
+  *How does the Transformer operate in $2-D$*
+ </p>
 
