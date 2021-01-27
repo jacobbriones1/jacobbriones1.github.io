@@ -5,5 +5,6 @@ tags: [attention, deep-learning]
 permalink: /attention/
 mathjax: true
 ---
+In Progress
 
-# Processing Images; Attention vs. Convolution
+# Attention vs. Convolution
