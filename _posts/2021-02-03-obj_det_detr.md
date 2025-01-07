@@ -6,14 +6,6 @@ permalink: /obj_det_detr/
 excerpt: "A complete guide to Facebook’s Detection Transformer (DETR) for Object Detection."
 mathjax: true
 ---
-
-
-# Object Detection with Transformers
-
-*Published in The Startup on February 3, 2021*
-
-A complete guide to Facebook’s Detection Transformer (DETR) for Object Detection.
-
 ![Example output of DETR](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*hGcCmvb0iyOrVOooytKB_w.png)
 
 ## Introduction
