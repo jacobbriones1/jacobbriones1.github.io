@@ -105,7 +105,7 @@ Let y denote the ground truth set. Suppose that the loss between y and ŷ is L, 
 
 ![Optimal Bipartite Matching](https://miro.medium.com/v2/resize:fit:554/format:webp/0*9f2zQug4nEvfGYuM)
 
-The process of computing $$\hat{\sigma}$$ is called finding an optimal bipartite matching. This can be found using the Hungarian Algorithm. But in order to find the optimal matching, we need to actually define a loss function which computes the matching cost between $$y_i$$ and $$\bar{y}_\{\sigma(i)}$$.
+The process of computing $$\hat{\sigma}$$ is called finding an optimal bipartite matching. This can be found using the Hungarian Algorithm. But in order to find the optimal matching, we need to actually define a loss function which computes the matching cost between $$y_i$$ and $$\bar{y}_{\sigma(i)}$$.
 
 Recall that our predictions consist of both a bounding box and a class. Let’s now assume that the class prediction is actually a probability distribution over the set of classes. Then the total loss for the i-th prediction will be the loss that is generated from class prediction and the loss generated from the bounding box prediction. The authors http://arxiv.org/abs/1906.05909 define this loss as the difference in the bounding box loss and the class prediction probability:
 
