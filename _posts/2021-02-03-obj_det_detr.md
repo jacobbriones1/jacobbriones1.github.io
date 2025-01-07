@@ -111,7 +111,7 @@ Recall that our predictions consist of both a bounding box and a class. Let’s 
 
 ![Matching Loss](https://miro.medium.com/v2/resize:fit:828/format:webp/0*V9BoAr86cnuQIMNv)
 
-where $\hat{p}_{c_i}$ is the argmax of the logits from $c_i$ and $\mathcal{L}_{box}$ is the loss resulting from the bounding box prediction. The above also states that the match loss is 0 if $c_i=\nullset$
+where $\hat{p}_{c_i}$ is the argmax of the logits from $c_i$ and $\mathcal{L}_{box}$ is the loss resulting from the bounding box prediction. The above also states that the match loss is 0 if $c_i=\emptyset$
 
 The box loss is computed as a linear combination of the L₁ loss (displacement) and the Generalized Intersection-Over-Union (GIOU) loss between the predicted and ground truth bounding box. Also, if you imagine two bounding boxes which don’t intersect, then the box error will not provide any meaningful context (as we can see from the definition of the box loss below).
 
