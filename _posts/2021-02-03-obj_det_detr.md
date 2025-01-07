@@ -273,7 +273,7 @@ Now we can visualize the results:
 
 plot_results(image, probs, bboxes, labels=True)
 ```
-![Outputted Results](https://miro.medium.com/v2/resize:fit:1100/format:webp/0*Sp4TrCMjBlpsOoDN.jpg)
+![Outputted Results](https://miro.medium.com/v2/resize:fit:1100/format:webp/1*BD6N-gGtnBD-fxXW8CZJmg.png)
 
 ## Final Thoughts
 This post explained some of the details behind the Detection Transformer. Much of the code was inspired by the author’s tutorials which can be found [here](https://colab.research.google.com/github/facebookresearch/detr/blob/colab/notebooks/detr_demo.ipynb?source=post_page-----437217a3d62e--------------------------------)
