@@ -99,7 +99,7 @@ Note: The code snippet above is a minimal example and may require additional com
 For a more comprehensive understanding and practical implementation, refer to the Object Detection Colab Notebook.
 
 ### Bipartite Matching Loss (Optional)
-Let $$\hat{y} =\\{\hat{y}_i| i=1,…N\\}$$ be the set of predictions where $$\hat{y}=(\hat{c}_i, b_i)$$ is the tuple consisting of the predicted class (which can be the empty class) and a bounding box $$b_i=(\bar{x}_i, \bar{y}_i, w_i, h_i)$$ where the bar notation represents the midpoint between endpoints, and $$w_i$$ and $$h_i$$ are the width and height of the box, respectively.
+Let $$\hat{y} =\{\hat{y}_i| i=1,…N\}$$ be the set of predictions where $$\hat{y}=(\hat{c}_i, b_i)$$ is the tuple consisting of the predicted class (which can be the empty class) and a bounding box $$b_i=(\bar{x}_i, \bar{y}_i, w_i, h_i)$$ where the bar notation represents the midpoint between endpoints, and $$w_i$$ and $$h_i$$ are the width and height of the box, respectively.
 
 Let y denote the ground truth set. Suppose that the loss between y and ŷ is L, and the loss between each $$y_i$$ and $$\bar{y_i}$$ is $$L_i$$. Since we are working on the level of sets, the loss $$L$$ must be permutation invariant, meaning that we will get the same loss regardless of how we order the predictions. Thus, we want to find a permutation $$\sigma_n\in S_n$$ which maps the indices of the predictions to the indices of the ground truth targets. Mathematically, we are solving for
 
