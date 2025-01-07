@@ -99,28 +99,28 @@ Note: The code snippet above is a minimal example and may require additional com
 For a more comprehensive understanding and practical implementation, refer to the Object Detection Colab Notebook.
 
 ### Bipartite Matching Loss (Optional)
-Let $\hat{y} =\\{\hat{y}_i| i=1,…N\\}$ be the set of predictions where $\hat{y}=(\hat{c}_i, b_i)$ is the tuple consisting of the predicted class (which can be the empty class) and a bounding box $b_i=(\bar{x}_i, \bar{y}_i, w_i, h_i)$ where the bar notation represents the midpoint between endpoints, and $w_i$ and $h_i$ are the width and height of the box, respectively.
+Let $$\hat{y} =\\{\hat{y}_i| i=1,…N\\}$$ be the set of predictions where $$\hat{y}=(\hat{c}_i, b_i)$$ is the tuple consisting of the predicted class (which can be the empty class) and a bounding box $$b_i=(\bar{x}_i, \bar{y}_i, w_i, h_i)$$ where the bar notation represents the midpoint between endpoints, and $$w_i$$ and $$h_i$$ are the width and height of the box, respectively.
 
-Let y denote the ground truth set. Suppose that the loss between y and ŷ is L, and the loss between each $y_i$ and $\bar{y_i}$ is $L_i$. Since we are working on the level of sets, the loss $L$ must be permutation invariant, meaning that we will get the same loss regardless of how we order the predictions. Thus, we want to find a permutation $\sigma_n\in S_n$ which maps the indices of the predictions to the indices of the ground truth targets. Mathematically, we are solving for
+Let y denote the ground truth set. Suppose that the loss between y and ŷ is L, and the loss between each $$y_i$$ and $$\bar{y_i}$$ is $$L_i$$. Since we are working on the level of sets, the loss $$L$$ must be permutation invariant, meaning that we will get the same loss regardless of how we order the predictions. Thus, we want to find a permutation $$\sigma_n\in S_n$$ which maps the indices of the predictions to the indices of the ground truth targets. Mathematically, we are solving for
 
 ![Optimal Bipartite Matching](https://miro.medium.com/v2/resize:fit:554/format:webp/0*9f2zQug4nEvfGYuM)
 
-The process of computing $\hat{\sigma}$ is called finding an optimal bipartite matching. This can be found using the Hungarian Algorithm. But in order to find the optimal matching, we need to actually define a loss function which computes the matching cost between $y_i$ and $\bar{y}_\{\sigma(i)}$.
+The process of computing $$\hat{\sigma}$$ is called finding an optimal bipartite matching. This can be found using the Hungarian Algorithm. But in order to find the optimal matching, we need to actually define a loss function which computes the matching cost between $$y_i$$ and $$\bar{y}_\{\sigma(i)}$$.
 
 Recall that our predictions consist of both a bounding box and a class. Let’s now assume that the class prediction is actually a probability distribution over the set of classes. Then the total loss for the i-th prediction will be the loss that is generated from class prediction and the loss generated from the bounding box prediction. The authors http://arxiv.org/abs/1906.05909 define this loss as the difference in the bounding box loss and the class prediction probability:
 
 ![Matching Loss](https://miro.medium.com/v2/resize:fit:828/format:webp/0*V9BoAr86cnuQIMNv)
 
-where $\hat{p}_{c_i}$ is the argmax of the logits from $c_i$ and $\mathcal{L}_{box}$ is the loss resulting from the bounding box prediction. The above also states that the match loss is 0 if $c_i=\emptyset$
+where $$\hat{p}_{c_i}$$ is the argmax of the logits from $$c_i$$ and $$\mathcal{L}_{box}$$ is the loss resulting from the bounding box prediction. The above also states that the match loss is 0 if $$c_i=\emptyset$$
 
 The box loss is computed as a linear combination of the L₁ loss (displacement) and the Generalized Intersection-Over-Union (GIOU) loss between the predicted and ground truth bounding box. Also, if you imagine two bounding boxes which don’t intersect, then the box error will not provide any meaningful context (as we can see from the definition of the box loss below).
 
 ![Box Loss](https://miro.medium.com/v2/resize:fit:750/format:webp/0*wr5KBsLK49DvVj8V)
 
-Where in the above equation the parameters $\lambda_{\text{IOU}}$ and $\lambda_{L_1}$ are scalar hyperparameters. Notice that this sum is also a combination of errors generated from area and distance. Why does this make sense?
+Where in the above equation the parameters $$\lambda_{\text{IOU}}$$ and $$\lambda_{L_1}$$ are scalar hyperparameters. Notice that this sum is also a combination of errors generated from area and distance. Why does this make sense?
 
 
-It makes sense to think of equation above as the total cost associated with the prediction $\hat{b}_{\sigma(i)}$ where the price of area errors is $\lambda_{\text{IOU}}$ and the *price* of distance errors is $\lambda_{L_1}$
+It makes sense to think of equation above as the total cost associated with the prediction $$\hat{b}_{\sigma(i)}$$ where the price of area errors is $$\lambda_{\text{IOU}}$$ and the *price* of distance errors is $$\lambda_{L_1}$$
 
 Now let’s actually define the GIOU loss function. It is defined as follows:
 
@@ -250,10 +250,12 @@ Now all we need to do to get our desired output is run the following:
 
 ```python
 probs, bboxes = detect(image, detr, transform)
-Plotting the Results
+```
+### Plotting the Results
 Now that we have our detected objects, we can use a simple function to visualize them
 
 # Plot Predicted Bounding Boxes
+```python
 def plot_results(pil_img, prob, boxes,labels=True):
     plt.figure(figsize=(16,10))
     plt.imshow(pil_img)
@@ -269,8 +271,10 @@ def plot_results(pil_img, prob, boxes,labels=True):
                 bbox=dict(facecolor=color, alpha=0.75))
     plt.axis('off')
     plt.show()
+```
 Now we can visualize the results:
 
+```python
 plot_results(image, probs, bboxes, labels=True)
 ```
 ![Outputted Results](https://miro.medium.com/v2/resize:fit:1100/format:webp/1*BD6N-gGtnBD-fxXW8CZJmg.png)
