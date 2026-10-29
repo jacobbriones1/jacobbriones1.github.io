@@ -1,0 +1,491 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><title>Comet Lab · Live Circuit Simulator</title><style>
+:root{color-scheme:dark;--bg:#08111f;--surface:#0e1d2c;--line:#26394b;--text:#e4f2fb;--sub:#9db4c8;--blue:#52d7ff;--gold:#ffd16b;--red:#ff747b;--green:#79e7b5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}.app{padding:14px;max-width:1420px;margin:auto}h1{font-size:20px;margin:0;font-weight:700}h2{font-size:14px;margin:0 0 8px}.subtitle{color:var(--sub);font-size:12px;margin:4px 0 12px}.panel{background:var(--surface);border:1px solid #2a4157;border-radius:13px;padding:11px;margin-bottom:12px}.toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:11px 0}.button{appearance:none;border:1px solid #3b536a;border-radius:8px;background:#193044;color:var(--text);padding:9px 12px;cursor:pointer;font-weight:600}.button.primary{background:#0c729a;border-color:#21b5e1}.button:hover{filter:brightness(1.2)}.button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #4ccfff;outline-offset:2px}.status{font-size:12px;color:var(--sub);margin-left:auto}.schematicScroll{overflow-x:auto;scrollbar-color:#43667d #132434}.schematic{display:block;width:100%;min-width:850px;height:auto;background:#0b1724;border-radius:8px;user-select:none;touch-action:pan-x pan-y}.schematic .chip{fill:#132a3b;stroke:#5883a1;stroke-width:2}.schematic .chipText{font-size:20px;font-weight:750;fill:#e1f3ff;text-anchor:middle}.schematic text{fill:#bed4e5;font-size:13px}.schematic .small{font-size:11px}.schematic .micro{font-size:9px}.schematic .caption{font-size:13px;fill:#e8f3fa;font-weight:650}.schematic .section{font-size:14px;fill:#80a5c2;font-weight:750;letter-spacing:1px}.schematic .wire{stroke:#476076;stroke-width:3;stroke-linejoin:round;stroke-linecap:round;fill:none;transition:stroke .08s}.schematic .wire.on{stroke:#42cfef;filter:drop-shadow(0 0 4px #2fcfff66)}.schematic .wire.logicOn{stroke:#ffd16b;filter:drop-shadow(0 0 5px #ffc95455)}.schematic .wire.bad{stroke:#fa6872;stroke-dasharray:5 5}.schematic .part{fill:#213448;stroke:#88a4ba;stroke-width:1.6}.schematic .part.selected{stroke:#ffe087;stroke-width:3}.schematic [data-probe],.schematic [data-chan]{cursor:pointer}.schematic [data-probe]:hover .part,.schematic [data-chan]:hover .ledring{stroke:#fff4ac;stroke-width:3}.schematic .ledring{stroke:#49667d;stroke-width:2;fill:#203244}.schematic .ground{stroke:#7290a7;stroke-width:2;fill:none}.schematic .particle{fill:#d9fcff;pointer-events:none}.labels{display:flex;gap:13px;flex-wrap:wrap;font-size:12px;color:var(--sub);margin:7px 3px 0}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}.controls{display:grid;grid-template-columns:1.05fr 1fr;gap:12px}.split{display:grid;grid-template-columns:1fr 1fr;gap:12px}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.control{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:5px 0}.control label{color:var(--sub);font-size:12px}.control output{font-variant-numeric:tabular-nums;font-size:12px;font-weight:650}.control input{grid-column:1/-1;width:100%;accent-color:#5ad7fa;margin:4px 0 0}.controlsGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}.probeSelect{width:100%;background:#142b3e;color:#e5f4fc;border:1px solid #406075;padding:9px;border-radius:7px}select{background:#142b3e;color:#e5f4fc;border:1px solid #406075;padding:7px;border-radius:7px}.meter{font-size:31px;font-weight:750;color:#7ce7ff;font-variant-numeric:tabular-nums;line-height:1.2;margin:8px 0}.submeter{font-size:12px;color:var(--sub);min-height:2em}.scope{width:100%;height:230px;background:#071521;border-radius:8px;border:1px solid #284356}.pill{border:1px solid #4a5a6c;background:#172a3b;border-radius:999px;padding:4px 10px;font-size:12px}.notes{color:#b2c6d6;font-size:12px;line-height:1.55}.hide{display:none}.fault{color:#ffabb1;font-size:12px}.metric{font-variant-numeric:tabular-nums}.columns{display:grid;grid-template-columns:2fr 1fr;gap:12px}@media(max-width:850px){.controls,.columns{grid-template-columns:1fr}.split{grid-template-columns:1fr}.status{margin:0}.app{padding:9px}.panel{padding:9px}.schematic{min-width:840px}.controlsGrid{gap:0 8px}.toolbar{gap:6px}.button{padding:8px 10px}}
+
+/* COMET LAB / 2026 MOBILE REDESIGN */
+:root{--bg:#070d18;--surface:#111d2e;--line:#2b4057;--text:#edf5fd;--sub:#92a9bd;--blue:#62d9ff;--gold:#ffca7a;--green:#6fe6bd}
+html,body{overscroll-behavior:none}body{background:radial-gradient(ellipse 800px 480px at 5% -15%,#12314c 0%,transparent 65%),radial-gradient(ellipse 500px 360px at 95% 30%,#152337 0%,transparent 75%),var(--bg)}
+.app{max-width:1380px;padding:19px 20px 30px}.panel{background:linear-gradient(155deg,rgba(23,39,57,.94),rgba(13,26,42,.97));border:1px solid #2b4158;border-radius:18px;box-shadow:inset 0 1px 0 #ffffff09,0 8px 28px #00000018;padding:15px}.panel h2{font-size:13px;text-transform:uppercase;letter-spacing:.075em;font-weight:750;color:#bfd5e5}
+h1{font-size:25px;letter-spacing:-.065em;line-height:1.18}.subtitle{color:#8fa8bc}button,select,input{font:inherit}.button{background:#1a2e43;border-color:#34516b;border-radius:11px;min-height:39px;transition:background .15s,transform .1s}.button:active{transform:scale(.97)}.button.primary{background:linear-gradient(135deg,#1aa4d9,#066e9c);border-color:#38c1e5;color:#fff}.toolbar{margin:13px 0 14px}.pill{background:#182b3e;border:1px solid #35506a;color:#cce2f2}.meter{font-variant-numeric:tabular-nums;letter-spacing:-.045em}.scope{border-radius:13px;background:#081522}
+.schematic{min-width:0}.schematicScroll{overflow:hidden}.desktopLegend{margin-top:10px}.mobileOnly{display:none!important}.bottomNav{display:none}
+.bright-chip{display:inline-flex;align-items:center;gap:7px;color:#cde7f7;font-size:11px;font-weight:650;letter-spacing:.03em}.bright-chip::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#54d8f9;box-shadow:0 0 8px #54d8f9}
+/* Native portrait circuit overview */
+.mobileCircuit{background:linear-gradient(160deg,#0a1727 0%,#0a1522 100%);border-radius:15px;overflow:hidden;border:1px solid #1d3449;margin-top:10px;position:relative}
+.mobileDiagram{display:block;width:100%;height:auto;max-height:342px;overflow:visible;touch-action:manipulation}
+.mobileDiagram text{fill:#a5c5dd;font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:11px}
+.mobileDiagram .chip{fill:#152b3c;stroke:#537b99;stroke-width:1.3}
+.mobileDiagram .component{fill:#162a3c;stroke:#7090aa;stroke-width:1.35}
+.mobileDiagram .wire{stroke:#3b566c;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.mobileDiagram .wire.on{stroke:#48d9f8;filter:drop-shadow(0 0 3px #51d9ff89)}
+.mobileDiagram .wire.logicOn{stroke:#ffcb76;filter:drop-shadow(0 0 3px #ffcb7682)}
+.mobileDiagram .wire.bad{stroke:#fd737c;stroke-dasharray:5 4}
+.mobileDiagram .wire.isOff{stroke:#283f54;opacity:.48;stroke-dasharray:4 5}
+.mobileDiagram .probeTap{cursor:pointer;outline:none}.mobileDiagram .probeTap .component{transition:stroke .15s;stroke:#7090aa}
+.mobileDiagram .probeTap.isSelected .component{stroke:#ffcc80;stroke-width:2.4;filter:drop-shadow(0 0 4px #ffbf5c4d)}
+.mobileDiagram .probeTap:focus-visible .component{stroke:#fff2bb;stroke-width:3}
+.mobileDiagram .particle{fill:#daf8ff;pointer-events:none;filter:drop-shadow(0 0 3px #bceeffaa)}
+.mobileDiagram .eyebrow{fill:#729bb9;font-size:9px;font-weight:800;letter-spacing:1.1px}
+.mobileDiagram .textStrong{fill:#e7f3ff;font-weight:760;font-size:13px}
+.mobileDiagram .textSmall{fill:#86a3ba;font-size:9.5px}
+.mobileDiagram .chipLine{fill:#79aec9;font-size:10px;font-weight:600}
+.ledStrip{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:0;padding:12px 8px 9px;position:relative}
+.ledPick{background:none;border:0;color:#71899e;padding:4px 0 1px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-width:0;border-radius:9px;cursor:pointer}
+.ledPick .bulb{display:block;border-radius:50%;width:clamp(11px,4.2vw,19px);height:clamp(11px,4.2vw,19px);background:#20394e;box-shadow:inset 0 0 0 1px #4c667d;transition:background .12s,box-shadow .12s,transform .12s}
+.ledPick.isSelected{background:#1d364652;color:#ffda95}.ledPick.isSelected .bulb{outline:2px solid #eab86a;outline-offset:4px}.ledPick .ledNum{font-size:10px;font-weight:700;font-variant-numeric:tabular-nums}
+.ledPick:focus-visible{outline:2px solid #60dfff}.mobileCircuitHead{display:flex;justify-content:space-between;align-items:center;padding:10px 14px 0}.mobileCircuitHead span:first-child{color:#9cb5ca;font-weight:760;font-size:10px;letter-spacing:.1em}.mobileCircuitHead span:last-child{font-size:11px;color:#ffce7c;font-variant-numeric:tabular-nums}
+.mobileStats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.mobileStat{border:1px solid #294056;background:#13273a;border-radius:13px;padding:9px 10px;min-width:0}
+.mobileStat .num{font-size:clamp(15px,4.5vw,21px);font-variant-numeric:tabular-nums;font-weight:760;letter-spacing:-.04em;color:#bceffe;white-space:nowrap}
+.mobileStat .name{font-size:9.5px;color:#8fa9bc;white-space:nowrap}
+.mobileHint{color:#849db1;font-size:10px;margin-top:10px;display:flex;align-items:center;gap:6px}
+.mobileHint svg{flex:none}.headerTag{display:inline-flex;align-items:center;gap:7px;border-radius:999px;background:#1a3445;border:1px solid #31566c;font-size:10px;letter-spacing:.14em;font-weight:800;color:#71dfff;padding:4px 9px;text-transform:uppercase}
+.brandline{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.timeStamp{font-variant-numeric:tabular-nums;font-size:12px;color:#b5d7e9}
+
+.miniScopeButton{appearance:none;width:100%;margin-top:9px;border:1px solid #2b4760;border-radius:13px;background:linear-gradient(180deg,#112638,#0c1d2e);padding:8px 10px 7px;color:#c7e8f6;text-align:left;cursor:pointer}
+.miniScopeHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:10px;font-weight:800;letter-spacing:.09em}
+.miniScopeHeader span:last-child{color:#6ce0ff;font-size:9px;letter-spacing:.05em}.miniScopeLegend{font-style:normal;color:#7fa5bc;font-size:10px;letter-spacing:0;font-weight:500}
+.miniScope{width:100%;height:74px;display:block;margin-top:3px}
+@media(max-height:760px) and (max-width:720px){.miniScopeButton{display:none}}
+/* compact portrait app with 3 focused screens, no sideways panning */
+@media (max-width:720px){
+ html,body{height:100%;width:100%;overflow:hidden}
+ .app{height:100dvh;min-height:0;display:flex;flex-direction:column;padding:0;margin:0;width:100%;max-width:100%;overflow:hidden}
+ .app header{padding:calc(11px + env(safe-area-inset-top,0px)) 15px 6px;flex-shrink:0}
+ h1{font-size:19px;letter-spacing:-.058em}.app header .subtitle{font-size:10.5px;line-height:1.4;margin:3px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .headerTag{font-size:8px;letter-spacing:.06em;padding:4px 6px}
+ .toolbar{margin:0 12px 9px;flex-shrink:0;gap:7px;display:flex;flex-wrap:nowrap;align-items:center;background:#122336;padding:6px;border:1px solid #284257;border-radius:14px}
+ .toolbar .button{min-height:34px;line-height:1;flex:0 0 auto;font-size:11px;padding:7px 11px;border-radius:9px;white-space:nowrap}
+ .toolbar #step{font-size:0;width:36px;padding:0}.toolbar #step::after{content:'⏭';font-size:17px}
+ .toolbar #reset{font-size:0;width:35px;padding:0}.toolbar #reset::after{content:'↺';font-size:22px}
+ .toolbar #clockRead{margin-left:auto}.toolbar #outRead{display:none}.toolbar .pill{padding:6px 7px;font-size:10px;white-space:nowrap}
+ .toolbar .status{display:none}
+ .mobileOnly{display:block!important}
+ .desktopOnly,.schematicScroll,.desktopLegend{display:none!important}
+ .workspace{overflow-x:hidden;overflow-y:auto;flex:1;min-height:0;overscroll-behavior-y:contain;scrollbar-width:none;padding:0 11px 10px}
+ .workspace::-webkit-scrollbar{display:none}
+ .columns{display:contents}.app[data-active='tune'] .workspace{display:flex;flex-direction:column}.app[data-active='tune'] .workspace .panel[data-screen='tune']{order:2;flex-shrink:0}.app[data-active='tune'] .workspace>section[data-screen='tune']{order:1}.app[data-active='tune'] .workspace>section.notes[data-screen='tune']{order:3}.workspace .panel{display:none;margin:0 0 10px;padding:11px;border-radius:17px}
+ .app[data-active='circuit'] .workspace .panel[data-screen='circuit'],.app[data-active='scope'] .workspace .panel[data-screen='scope'],.app[data-active='tune'] .workspace .panel[data-screen='tune']{display:block}
+ .panel h2{font-size:11px;letter-spacing:.08em}.panel>.row{min-height:28px}
+ .mobileDiagram{max-height:calc(100dvh - 315px);min-height:215px}
+ .mobileCircuit{margin-top:7px}.ledStrip{padding:11px 7px 8px;gap:1px}
+ .mobileCircuitHead{padding:9px 12px 0}
+ .mobileStats{gap:6px;margin-top:9px}.mobileStat{padding:7px 9px;border-radius:11px}
+ .mobileHint{margin-top:9px}
+ .labels{font-size:10px;gap:8px;margin-top:10px}
+ .bottomNav{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:6px 12px calc(7px + env(safe-area-inset-bottom,0px));border-top:1px solid #263b50;flex-shrink:0;background:#0a1422;box-shadow:0 -9px 20px #060e1b99;z-index:3}
+ .bottomNav button{appearance:none;background:transparent;border:1px solid transparent;color:#8198af;border-radius:12px;min-height:49px;display:flex;gap:3px;align-items:center;justify-content:center;flex-direction:column;font-size:10px;font-weight:700;letter-spacing:.01em}
+ .bottomNav button svg{width:20px;height:20px;stroke-width:1.8}.bottomNav button.isActive{color:#6fddfb;background:#133246;border-color:#2d6683}
+ .split{grid-template-columns:1fr 1fr;gap:9px}.split label{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.probeSelect{height:41px;max-width:100%;padding:7px 9px;font-size:12px;border-radius:10px}
+ .meter{font-size:32px}.scope{height:min(44dvh,370px)}.submeter{font-size:11px}
+ .control{padding:8px 0}.control input{margin-top:7px;height:22px;touch-action:pan-y}
+ .controlsGrid{grid-template-columns:1fr;gap:0}.controlsGrid .control{padding:9px 0;border-bottom:1px solid #253a4a}
+ .mobileControlIntro{display:block!important;margin:0 0 11px;color:#9aafc1;font-size:12px}
+ .notes{font-size:11px}.fault{font-size:11px}
+ .tuneScreen .panel h2{margin-top:1px}
+}
+@media(max-width:360px){.app header{padding-left:12px;padding-right:12px}.toolbar{margin-left:8px;margin-right:8px;gap:4px}.toolbar .button{padding:6px 7px}.toolbar #play{font-size:10px}.toolbar .pill{font-size:9px}.workspace{padding-left:8px;padding-right:8px}.mobileDiagram{min-height:190px}.mobileStat .num{font-size:16px}}
+@media (max-height:670px) and (max-width:720px){.mobileDiagram{max-height:calc(100dvh - 290px);min-height:175px}.mobileStats{margin-top:5px}.mobileCircuitHead{padding-top:6px}.app header{padding-top:calc(5px + env(safe-area-inset-top,0px))}.mobileHint{margin-top:5px}}
+@media(min-width:721px){.app header{margin-bottom:5px}.headerTag{display:none}.mobileOnly{display:none!important}.workspace{display:block}}
+@media(prefers-reduced-motion:reduce){.button,.ledPick .bulb{transition:none}}
+</style></head><body><main class="app" data-active="circuit">
+<header><div class="brandline"><h1>Comet <span style="color:#5cdaff">Lab</span> <span style="color:#7e98ae;font-weight:450;font-size:.72em">/ 555 + CD4017</span></h1><span class="headerTag">● LIVE CIRCUIT</span></div><div class="subtitle">Explore current flow, probe components, tune your LED trail.</div></header>
+<div class="toolbar"><button class="button primary" id="play">❚❚ Pause</button><button class="button" id="step" title="Step one clock cycle" aria-label="Step one clock cycle">+1 clock cycle</button><button class="button" id="reset" title="Reset simulation" aria-label="Reset simulation">↺ Reset</button><span class="pill metric" id="clockRead">555 HIGH</span><span class="pill metric" id="outRead">Q0</span><span class="status metric" id="timeRead">t = 0.00 s</span></div>
+<div class="workspace">
+<section class="panel" data-screen="circuit"><div class="row"><h2>LIVE CIRCUIT</h2><span class="pill" id="chLabel">Detail: Q0</span></div>
+<div class="mobileOnly">
+ <div class="mobileCircuit">
+  <div class="mobileCircuitHead"><span>10-LED SEQUENCER</span><span id="mobileSequence">OUTPUT Q0 HIGH</span></div>
+  <div class="ledStrip" id="mobileLeds" aria-label="Select one of ten LEDs"></div>
+  <svg id="mobileDiagram" class="mobileDiagram" viewBox="0 0 360 292" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive circuit showing 555 timer, CD4017, fade capacitor, transistor and LED"></svg>
+ </div>
+ <div class="mobileStats">
+  <div class="mobileStat"><div class="name">Capacitor</div><div class="num" id="mobileCap">0.00 V</div></div>
+  <div class="mobileStat"><div class="name">Base current</div><div class="num" id="mobileBase">0 µA</div></div>
+  <div class="mobileStat"><div class="name">LED current</div><div class="num" id="mobileLedCurrent">0.00 mA</div></div>
+ </div>
+ <button type="button" class="miniScopeButton" id="openMiniScope" aria-label="Open full oscilloscope">
+  <span class="miniScopeHeader"><span>LIVE TRACE <i class="miniScopeLegend">· Capacitor</i></span><span>OPEN SCOPE ↗</span></span>
+  <canvas id="miniScope" class="miniScope" aria-label="Real-time capacitor voltage and LED current preview"></canvas>
+ </button>
+ <div class="mobileHint"><span style="color:#5ddafc">◉</span> Tap any component to probe its voltage or current on Scope.</div>
+</div>
+<div class="schematicScroll"><svg id="schematic" class="schematic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 715" aria-label="Interactive 555 timer, CD4017 decade counter, and selected LED fade channel"></svg></div><div class="labels desktopLegend"><span><i class="dot" style="background:#42cfef"></i>Current flowing</span><span><i class="dot" style="background:#ffd16b"></i>Logic HIGH</span><span><i class="dot" style="background:#506777"></i>Open / inactive</span><span><i class="dot" style="background:#fa6872"></i>Fault flagged / virtually isolated</span></div></section>
+<div class="columns"><section class="panel" data-screen="scope"><div class="row"><h2>OSCILLOSCOPE · LIVE PROBE</h2><span class="pill" id="probePoint">Fade capacitor</span></div><div class="split"><div><label class="subtitle" for="probe">Component or node</label><select id="probe" class="probeSelect"><optgroup label="555 timer"><option value="timerCap">555 timing capacitor</option><option value="ra">555 resistor RA</option><option value="rb">555 resistor RB</option><option value="clock">555 OUT / clock</option></optgroup><optgroup label="CD4017"><option value="q">Selected Q output</option></optgroup><optgroup label="Selected fade channel"><option value="fadeCap" selected>Fade capacitor</option><option value="charge">Charge resistor R1</option><option value="bleed">Bleeder resistor R2</option><option value="base">Base resistor R3</option><option value="ledR">LED resistor R4</option><option value="led">Blue LED</option><option value="transistor">NPN transistor</option></optgroup></select></div><div><label class="subtitle" for="mode">Measurement</label><select id="mode" class="probeSelect"><option value="v">Voltage across (V)</option><option value="i">Current through (mA)</option><option value="r">Resistance (Ω, nominal)</option></select></div></div><div class="row"><div><div class="meter" id="meter">0.000 V</div><div class="submeter" id="meterHelp">Voltage across selected part</div></div><div class="pill metric" id="qState">Q0</div></div><canvas class="scope" id="scope" aria-label="Live oscilloscope graph of the selected measurement"></canvas><div class="row" style="margin-top:8px"><label class="subtitle" for="span">Scope history</label><select id="span"><option value="5">5 s</option><option value="12" selected>12 s</option><option value="30">30 s</option><option value="60">60 s</option></select></div><div class="notes" id="scopeHelp">Scope updates continuously from the circuit model.</div></section>
+<section class="panel tuneScreen" data-screen="tune"><h2>Playback and fault isolation</h2><div class="control"><label for="speed">Simulation speed</label><output data-val="speed"></output><input type="range" id="speed" data-p="speed" min="0.1" max="8" step="0.1" value="1"/></div><div class="control"><label for="particles">Charge-dot speed multiplier</label><output data-val="particles"></output><input type="range" id="particles" data-p="particles" min="0.2" max="5" step="0.2" value="1"/></div><div class="control"><label for="channel">Detailed fade channel</label><output id="channelVal">Q0</output><input type="range" id="channel" min="0" max="9" step="1" value="0"/></div><label class="subtitle" for="fault">Fault on selected channel</label><select id="fault" class="probeSelect"><option value="none">Normal</option><option value="charge-open">R1 open</option><option value="base-open">R3 open</option><option value="led-open">LED branch open</option><option value="cap-short">Capacitor short (flag and isolate)</option></select><p class="fault" id="faultHelp" style="min-height:38px">Choose an open fault to see its branch go dark.</p><h2>Quick live values</h2><div class="notes metric" id="quick"></div></section></div>
+<section class="panel" data-screen="tune"><h2>Component values</h2><p class="mobileControlIntro" style="display:none">Drag a slider. The circuit restarts with the new values so you can compare the effect.</p><div class="controlsGrid" id="parameterControls"></div></section>
+<section class="panel notes" data-screen="tune"><strong>Model limits:</strong> 555 timing uses the standard ⅓–⅔ supply thresholds and ideal pin-7 switching. The CD4017 advances one output on each rising clock edge. Each channel charges through a diode and R1, discharges through R2 and the NPN base, and drives its own LED through R4. The transistor uses a fixed 0.7 V base-emitter drop, an approximate gain β, and a 0.2 V saturation limit. The counter's real output-drive limits and nonlinear transistor curves are not simulated. Brightness and charge-dot speeds are illustrative. An actual short draws fault current; here it is <em>flagged and virtually isolated</em>, not misleadingly modeled as a harmless open. Measure resistance with real circuit power OFF; the R mode only plots nominal component values.</section>
+</div>
+<nav class="bottomNav" aria-label="Simulator views">
+ <button type="button" data-tab="circuit" class="isActive" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h6v8h6V8h6"/><circle cx="3" cy="8" r="1"/><circle cx="21" cy="8" r="1"/></svg>Circuit</button>
+ <button type="button" data-tab="scope"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3-7 5 14 3-7h5"/></svg>Scope</button>
+ <button type="button" data-tab="tune"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2.5" fill="#0d1d2b"/><circle cx="16" cy="12" r="2.5" fill="#0d1d2b"/><circle cx="11" cy="18" r="2.5" fill="#0d1d2b"/></svg>Tune</button>
+</nav>
+</main><script>
+(() => {
+'use strict';
+const $=id=>document.getElementById(id),svg=$('schematic'),NS='http://www.w3.org/2000/svg';
+const params={vs:9,ra:1,rb:1,ct:470,rc:10,cf:47,rbleed:100,rbase:33,rled:2.2,beta:100,speed:1,particles:1};
+const defaults=structuredClone(params);
+const specs=[['vs','Supply voltage Vₛ','V',4,15,.5],['ra','555 RA','kΩ',.5,15,.5],['rb','555 RB','kΩ',.5,15,.5],['ct','555 timing C','µF',10,1000,10],['rc','Fade R1 (charge)','kΩ',1,100,1],['cf','Fade capacitor','µF',1,220,1],['rbleed','Fade R2 (bleed)','kΩ',10,470,5],['rbase','Fade R3 (base)','kΩ',5,150,1],['rled','LED R4','kΩ',.33,10,.01],['beta','Transistor gain β','',20,200,10]];
+let state,paused=false,selected=0,mode='v',probe='fadeCap',scopeSpan=12,history=[],sampleAcc=0,particlePhase=0,fault='none',lastFrame=0,drawAt=0;
+const W=(x)=>Math.max(0,x),K=n=>n*1000,U=n=>n*1e-6;
+const ground=(x,y)=>`<path d="M${x-14} ${y} h28 M${x-9} ${y+6} h18 M${x-4} ${y+12} h8" class="ground"/>`;
+function reset(){state={t:0,timing:params.vs/3,high:true,q:0,channels:Array(10).fill(0)};history=[];sampleAcc=0;particlePhase=0;record();render();}
+function step(dt){
+ const ra=K(params.ra),rb=K(params.rb),ct=U(params.ct),vs=params.vs;
+ let remaining=dt;
+ while(remaining>1e-10){
+   const old=state.timing;
+   let tau,target,limit,duration;
+   if(state.high){tau=(ra+rb)*ct;target=vs;limit=2*vs/3;duration=tau*Math.log((target-old)/(target-limit));}
+   else{tau=rb*ct;target=0;limit=vs/3;duration=tau*Math.log(old/limit);}
+   duration=Math.max(0,duration);
+   const dtLocal=Math.min(remaining,duration);
+   const newT=target+(old-target)*Math.exp(-dtLocal/tau);
+   updateChannels(dtLocal);
+   state.timing=newT;state.t+=dtLocal;remaining-=dtLocal;
+   if(duration<=dtLocal+1e-10){
+    state.timing=limit;
+    if(state.high)state.high=false;
+    else{state.high=true;state.q=(state.q+1)%10;}
+   }
+   if(dtLocal<1e-10&&duration>dtLocal+1e-10)break;
+ }
+}
+function updateChannels(dt){
+ if(dt<=0)return;
+ const vbe=.7,rv=K(params.rc),r2=K(params.rbleed),r3=K(params.rbase),c=U(params.cf),supply=params.vs-.7;
+ // Exact first-order evolution, subdivided near the base threshold.
+ const n=Math.max(1,Math.ceil(dt/.012)),h=dt/n;
+ for(let j=0;j<n;j++)for(let idx=0;idx<10;idx++){
+  if(fault==='cap-short'&&idx===selected){state.channels[idx]=0;continue;}
+  let v=state.channels[idx];const drive=state.q===idx&&!(idx===selected&&fault==='charge-open');
+  const baseOn= v>.7 && !(idx===selected&&fault==='base-open');
+  const a=(drive?1/rv:0)+1/r2+(baseOn?1/r3:0);
+  const b=(drive?supply/rv:0)+(baseOn?vbe/r3:0);
+  const steady=b/a;
+  v=steady+(v-steady)*Math.exp(-a*h/c);
+  state.channels[idx]=Math.max(0,v);
+ }
+}
+function record(){history.push({t:state.t,timing:state.timing,high:state.high,q:state.q,channels:state.channels.slice()});while(history.length>4500 || history.length>2&&history[0].t<state.t-65)history.shift();}
+function getValues(s,idx=selected){
+ let v=s.channels[idx],vs=params.vs;
+ const active=s.q===idx,isolated=fault==='cap-short'&&idx===selected,chargeOpen=fault==='charge-open'&&idx===selected,baseOpen=fault==='base-open'&&idx===selected,ledOpen=fault==='led-open'&&idx===selected;
+ if(isolated)v=0;
+ const ib=baseOpen||isolated?0:W((v-.7)/K(params.rbase));
+ const ich=active&&!chargeOpen&&!isolated?W((vs-.7-v)/K(params.rc)):0;
+ const bleed=isolated?0:v/K(params.rbleed);
+ const icap=isolated?0:ich-bleed-ib;
+ const maxLed=W((vs-3-.2)/K(params.rled));
+ const il=ledOpen||isolated?0:Math.min(maxLed,params.beta*ib);
+ const vLed=il>1e-12?3:0;
+ const vce=il>1e-12?Math.max(.2,vs-vLed-il*K(params.rled)):vs;
+ const ra=K(params.ra),rb=K(params.rb);
+ const tira=s.high?(vs-s.timing)/(ra+rb):vs/ra;
+ const tirb=s.high?(vs-s.timing)/(ra+rb):-s.timing/rb;
+ return {v,ib,ich,bleed,icap,il,maxLed,vLed,vce,tira,tirb,vra:tira*ra,vrb:Math.abs(tirb)*rb,active,isolated,chargeOpen,baseOpen,ledOpen};
+}
+function measure(s,p=probe,m=mode){
+ const a=getValues(s),vs=params.vs,selHigh=s.q===selected;
+ const defs={
+  timerCap:[s.timing, s.high?(vs-s.timing)/(K(params.ra)+K(params.rb)):-s.timing/K(params.rb),null],
+  ra:[a.vra,a.tira,K(params.ra)],rb:[a.vrb,a.tirb,K(params.rb)],clock:[s.high?vs:0,0,null],q:[selHigh?vs:0,a.ich,null],
+  fadeCap:[a.v,a.icap,null],charge:[a.ich*K(params.rc),a.ich,K(params.rc)],bleed:[a.v,a.bleed,K(params.rbleed)],base:[a.ib*K(params.rbase),a.ib,K(params.rbase)],
+  ledR:[a.il*K(params.rled),a.il,K(params.rled)],led:[a.vLed,a.il,null],transistor:[a.vce,a.il,null]
+ };
+ const ix={v:0,i:1,r:2}[m];const value=defs[p][ix];return value===null?null:m==='i'?value*1000:value;
+}
+
+const mobileSvg=$('mobileDiagram');
+let mobileFlowSegments={};
+function switchTab(tab){
+ document.querySelector('.app').dataset.active=tab;
+ document.querySelectorAll('[data-tab]').forEach(b=>{
+  const active=b.dataset.tab===tab;
+  b.classList.toggle('isActive',active);
+  if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
+ });
+ document.querySelector('.workspace').scrollTop=0;
+ if(tab==='scope')requestAnimationFrame(plot);
+}
+function chooseProbe(key){probe=key;$('probe').value=key;switchTab('scope');render();}
+function buildMobileDiagram(){
+ mobileSvg.innerHTML=`
+ <defs><radialGradient id="mobileGlow"><stop stop-color="#60daff"/><stop offset="1" stop-color="#55adff" stop-opacity=".05"/></radialGradient></defs>
+ <text x="15" y="13" class="eyebrow">CLOCK / SEQUENCER</text>
+ <g data-probe="clock" tabindex="0" role="button" aria-label="Probe 555 clock output" class="probeTap">
+  <rect class="chip component" x="12" y="21" width="122" height="56" rx="11"/>
+  <text class="textStrong" x="23" y="42">NE555</text><text class="chipLine" x="23" y="58">ASTABLE · CLK</text>
+ </g>
+ <path class="wire" data-mobileflow="clock" d="M134 49 H223"/>
+ <path d="M212 44 l9 5 -9 5" stroke="#789fb7" stroke-width="1.5" fill="none"/>
+ <g data-probe="q" tabindex="0" role="button" aria-label="Probe CD4017 output" class="probeTap">
+  <rect class="chip component" x="223" y="21" width="125" height="56" rx="11"/>
+  <text class="textStrong" x="235" y="42">CD4017</text><text class="chipLine" id="mobileOutputText" x="235" y="58">Q0 HIGH</text>
+ </g>
+ <path d="M12 91 H348" stroke="#284359" stroke-width="1"/>
+ <text x="14" y="105" class="eyebrow">SELECTED FADE CHANNEL</text><text id="mQTag" x="347" y="105" text-anchor="end" class="chipLine">Q0</text>
+ <text id="mSource" x="12" y="137" class="textStrong">Q0</text>
+ <path class="wire" data-mobileflow="drive" d="M33 133 H44"/>
+ <path d="M44 123 L44 143 L61 133 Z" stroke="#8caec5" fill="#1b4157" stroke-width="1.8"/><path d="M62 121 V145" stroke="#9bbcd1" stroke-width="2"/>
+ <path class="wire" data-mobileflow="drive" d="M63 133 H84"/>
+ <g data-probe="charge" tabindex="0" role="button" aria-label="Probe charging resistor R1" class="probeTap">
+  <rect class="component" x="84" y="122" width="42" height="22" rx="5"/><text x="105" y="137" text-anchor="middle">R1</text>
+ </g>
+ <path class="wire" data-mobileflow="drive" d="M126 133 H145"/>
+ <circle cx="145" cy="133" r="3.5" fill="#48d9f8"/>
+ <text id="mVcap" x="145" y="122" text-anchor="middle" class="chipLine">0.00V</text>
+ <path class="wire" data-mobileflow="cap" d="M145 133 V181"/>
+ <path d="M131 181 H159 M131 189 H159" stroke="#adccdf" stroke-width="2.6"/>
+ <path class="wire" data-mobileflow="cap" d="M145 189 V246"/>
+ <g data-probe="fadeCap" tabindex="0" role="button" aria-label="Probe fade capacitor" class="probeTap"><rect class="component" x="123" y="174" width="44" height="25" rx="6" fill-opacity=".11"/><text x="145" y="215" text-anchor="middle">Cfade</text></g>
+ <path class="wire" data-mobileflow="bleed" d="M145 133 H209 V173"/>
+ <g data-probe="bleed" tabindex="0" role="button" aria-label="Probe bleeder resistor R2" class="probeTap"><rect class="component" x="196" y="173" width="26" height="44" rx="5"/><text x="209" y="199" text-anchor="middle">R2</text></g>
+ <path class="wire" data-mobileflow="bleed" d="M209 217 V246"/>
+ <path class="wire" data-mobileflow="base" d="M209 133 H257 V201 H265"/>
+ <g data-probe="base" tabindex="0" role="button" aria-label="Probe transistor base resistor R3" class="probeTap"><rect class="component" x="265" y="189" width="36" height="24" rx="5"/><text x="283" y="205" text-anchor="middle">R3</text></g>
+ <path class="wire" data-mobileflow="base" d="M301 201 H308"/>
+ <circle cx="325" cy="201" r="21" fill="#122c3f" stroke="#7cabbf" stroke-width="1.5"/>
+ <path d="M310 188 V215 M310 201 H308 M311 195 L325 189 M311 207 L325 214 M319 213 L325 214 L324 207" stroke="#c8e8f8" fill="none" stroke-width="1.9"/>
+ <path class="wire" data-mobileflow="led" d="M325 180 V170"/>
+ <path d="M315 151 L325 169 L335 151 Z" stroke="#b1dbf4" stroke-width="1.8" fill="#143e5d"/><path d="M314 171 H336" stroke="#b1dbf4" stroke-width="1.8"/>
+ <path d="M333 146 l7 -9 M338 150 l9 -9" stroke="#51ddff" stroke-width="1.5"/>
+ <g data-probe="led" tabindex="0" role="button" aria-label="Probe LED" class="probeTap"><rect class="component" x="311" y="146" width="28" height="29" rx="4" fill-opacity=".08"/></g>
+ <path class="wire" data-mobileflow="led" d="M325 151 V139"/>
+ <g data-probe="ledR" tabindex="0" role="button" aria-label="Probe LED resistor R4" class="probeTap"><rect class="component" x="312" y="110" width="26" height="29" rx="5"/><text x="325" y="128" text-anchor="middle">R4</text></g>
+ <path class="wire" data-mobileflow="led" d="M325 98 V110"/>
+ <text class="chipLine" x="325" y="94" text-anchor="middle">+Vₛ</text>
+ <path class="wire" data-mobileflow="led" d="M325 219 V246"/>
+ <path d="M132 246 H158 M136 252 H154 M141 257 H149 M196 246 H222 M200 252 H218 M205 257 H213 M312 246 H338 M316 252 H334 M321 257 H329" stroke="#7595a9" stroke-width="1.7" fill="none"/>
+ <text x="16" y="281" class="textSmall">Cyan = conducting    ·    Gold = logic HIGH    ·    Red = fault</text>
+ `;
+ mobileSvg.querySelectorAll('[data-probe]').forEach(el=>{
+  const fn=()=>chooseProbe(el.dataset.probe);
+  el.addEventListener('click',fn);
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fn();}});
+ });
+ const branches=['drive','cap','bleed','base','led'];
+ for(const name of branches){mobileFlowSegments[name]=[];mobileSvg.querySelectorAll(`[data-mobileflow="${name}"]`).forEach(w=>{
+  const len=w.getTotalLength(),dots=[];
+  for(let i=0;i<Math.max(2,Math.ceil(len/28));i++){
+   const dot=document.createElementNS(NS,'circle');dot.classList.add('particle');dot.setAttribute('r','2.1');mobileSvg.append(dot);dots.push(dot);
+  }
+  mobileFlowSegments[name].push({node:w,len,dots});
+ });}
+ $('mobileLeds').innerHTML=Array.from({length:10},(_,i)=>`<button class="ledPick" type="button" data-mobile-led="${i}" aria-label="Select LED ${i+1}"><span class="bulb"></span><span class="ledNum">${i+1}</span></button>`).join('');
+ $('mobileLeds').querySelectorAll('[data-mobile-led]').forEach(btn=>btn.addEventListener('click',()=>{
+  selected=Number(btn.dataset.mobileLed);$('channel').value=selected;updateSelected();
+ }));
+}
+function updateMobile(){
+ const a=getValues(state);
+ $('mobileSequence').textContent=`Q${state.q} HIGH`;
+ $('mobileOutputText').textContent=`Q${state.q} HIGH`;
+ $('mQTag').textContent=`Q${selected}`;$('mSource').textContent=`Q${selected}`;
+ $('mVcap').textContent=a.v.toFixed(2)+' V';
+ $('mobileCap').textContent=a.v.toFixed(2)+' V';
+ $('mobileBase').textContent=(a.ib*1e6).toFixed(a.ib*1e6<10?1:0)+' µA';
+ $('mobileLedCurrent').textContent=(a.il*1000).toFixed(2)+' mA';
+ $('mobileLeds').querySelectorAll('[data-mobile-led]').forEach((btn,i)=>{
+  const v=getValues(state,i),intensity=v.maxLed>0?Math.pow(v.il/v.maxLed,.7):0;
+  btn.classList.toggle('isSelected',i===selected);
+  const bulb=btn.querySelector('.bulb');
+  bulb.style.background=intensity<.04?'#243a50':`rgb(${Math.round(42+75*intensity)}, ${Math.round(109+112*intensity)}, 255)`;
+  bulb.style.boxShadow=intensity<.04?'inset 0 0 0 1px #526f85':`0 0 ${Math.round(4+15*intensity)}px #40bfff,0 0 ${Math.round(1+8*intensity)}px #69d9ff99,inset 0 0 4px #d7f4ff`;
+  btn.setAttribute('aria-pressed',i===selected?'true':'false');
+ });
+ mobileSvg.querySelector('[data-mobileflow="clock"]').classList.toggle('logicOn',state.high);
+ mobileSvg.querySelector('[data-mobileflow="clock"]').classList.toggle('isOff',!state.high);
+ const flows={drive:a.ich,cap:a.icap,bleed:a.bleed,base:a.ib,led:a.il};
+ mobileSvg.querySelectorAll('[data-mobileflow]').forEach(w=>{
+  const key=w.dataset.mobileflow;
+  if(key==='clock')return;
+  const val=flows[key]||0;
+  const bad=fault==='cap-short'||fault==='charge-open'&&key==='drive'||fault==='base-open'&&key==='base'||fault==='led-open'&&key==='led';
+  w.classList.toggle('on',Math.abs(val)>1e-9&&!bad);
+  w.classList.toggle('isOff',Math.abs(val)<=1e-9||bad);
+  w.classList.toggle('bad',bad);
+ });
+ mobileSvg.querySelectorAll('.probeTap').forEach(g=>g.classList.toggle('isSelected',g.dataset.probe===probe));
+ for(const [key,seg] of Object.entries(mobileFlowSegments)){
+  const val=flows[key]||0,scale=key==='led'?.003:.001;
+  const ratio=Math.min(1,Math.abs(val)/scale);
+  seg.forEach(({node,len,dots})=>dots.forEach((dot,i)=>{
+   if(Math.abs(val)<1e-10){dot.setAttribute('opacity','0');return;}
+   let u=(particlePhase*params.particles*(.12+.6*ratio)+i/dots.length)%1;
+   if(val<0)u=1-u;
+   const pt=node.getPointAtLength(u*len);
+   dot.setAttribute('cx',pt.x);dot.setAttribute('cy',pt.y);
+   dot.setAttribute('opacity',(0.35+0.65*ratio).toFixed(2));
+  }));
+ }
+}
+
+function buildDiagram(){
+ const el=[];let p=0;
+ const path=(d,segment,opts='')=>{let id='wire'+p++; el.push(`<path d="${d}" id="${id}" class="wire" data-segment="${segment}" ${opts}/>`);return id;};
+ const part=(x,y,w,h,caption,probeKey)=>el.push(`<g data-probe="${probeKey}"><rect class="part" data-part="${probeKey}" x="${x}" y="${y}" width="${w}" height="${h}" rx="5"/><text x="${x+w/2}" y="${y+h/2+4}" text-anchor="middle" class="small">${caption}</text></g>`);
+ const txt=(x,y,t,clazz='')=>el.push(`<text x="${x}" y="${y}" class="${clazz}">${t}</text>`);
+ txt(25,29,'555 ASTABLE CLOCK','section');txt(445,29,'CD4017 COUNTER','section');txt(775,29,'10 FADE OUTPUTS','section');
+ // 555 exterior
+ el.push('<rect x="30" y="100" width="165" height="176" rx="12" class="chip"/>');
+ txt(55,132,'8 VCC  •  4 RESET','small');el.push('<text x="112" y="174" class="chipText">NE555</text>');txt(55,197,'3 OUTPUT →','small');txt(55,220,'2 TRIG / 6 THR','small');txt(55,243,'7 DISCH','small');txt(55,264,'1 GND','small');
+ txt(244,60,'+ Vₛ','caption');path('M260 65 V91','555power');part(246,91,28,37,'RA','ra');path('M260 128 V158 H195','555ra');path('M260 158 V187','555rb');part(246,187,28,37,'RB','rb');path('M260 224 V260 H195','555timing');part(246,281,28,37,'Cₜ','timerCap');path('M260 260 V281 M260 318 V341','555timing');el.push(ground(260,341));path('M195 243 H225 V158','555rb');
+ path('M112 276 V315','555gnd');el.push(ground(112,315));
+ path('M195 189 H251 Q260 172 269 189 H415 V189 H442','clock');txt(308,178,'CLK (pin 14)','small');
+ // Counter
+ el.push('<rect x="442" y="90" width="174" height="314" rx="12" class="chip"/>');el.push('<text x="530" y="116" class="chipText">CD4017</text>');txt(456,140,'VDD 16: +Vₛ','small');txt(456,155,'GND 8: 0 V','small');txt(456,170,'EN 13: 0 V','small');txt(456,185,'RESET 15: 0 V','small');
+ const pins=[3,2,4,7,10,1,5,6,9,11];
+ for(let i=0;i<10;i++){
+  const y=207+i*19;
+  txt(533,y+4,`Q${i}  ·  pin ${pins[i]}`,'small');
+  path(`M616 ${y} H825`,'q'+i);
+  el.push(`<g data-chan="${i}"><rect x="821" y="${y-10}" width="52" height="20" rx="5" class="part"/><text x="847" y="${y+4}" text-anchor="middle" class="micro">fade</text><path d="M873 ${y} H936" class="wire" data-segment="q${i}"/><circle class="ledring" data-led="${i}" cx="956" cy="${y}" r="10"/><circle data-light="${i}" cx="956" cy="${y}" r="7" fill="#54c7ff" opacity=".08"/><text x="980" y="${y+4}" class="small">LED ${i+1}</text></g>`);
+ }
+ txt(460,430,'Click an LED above to inspect its exact channel below. Logic outputs are shown as linked fade blocks.','small');
+ el.push('<path d="M20 447 H1080" stroke="#2b4b63" stroke-width="2"/>');
+ txt(25,469,'SELECTED CHANNEL  ·  CD4017 Q0','section');
+ el.push('<text id="selectedQLabel" x="28" y="508" class="caption">Q0</text>');
+ path('M62 504 H107','drive');
+ // diode triangle / bar
+ el.push('<path d="M107 490 L107 518 L132 504 Z" fill="#17364a" stroke="#bed6e5" stroke-width="2"/><path d="M134 488 V520" stroke="#bed6e5" stroke-width="3"/>');
+ path('M135 504 H163','drive');part(163,490,80,28,'R1','charge');path('M243 504 H358','drive');
+ el.push('<circle cx="358" cy="504" r="5" fill="#52d7ff"/>');txt(346,491,'Vcap','small');
+ path('M358 504 V561','cap');
+ el.push('<path d="M338 561 H378 M338 572 H378" stroke="#c0d7e6" stroke-width="3"/>');path('M358 572 V639','cap');el.push(ground(358,639));txt(310,566,'Cfade','small');el.push('<g data-probe="fadeCap"><rect x="335" y="551" width="48" height="30" fill="transparent"/></g>');
+ path('M358 504 H521 V535','bleed');part(503,535,36,56,'R2','bleed');path('M521 591 V639','bleed');el.push(ground(521,639));
+ path('M521 504 H672 V581 H710','base');part(710,567,83,28,'R3','base');path('M793 581 H837','base');
+ // NPN
+ el.push('<circle cx="875" cy="581" r="39" fill="#132b3c" stroke="#8fb5ca" stroke-width="2"/>');el.push('<path d="M845 562 V599" stroke="#e4f4ff" stroke-width="3"/>');
+ path('M837 581 H845','base');el.push('<path d="M845 568 L875 553 M845 592 L875 608 M861 600 L875 608 L869 593" stroke="#e4f4ff" stroke-width="2.7" fill="none"/>');
+ path('M875 608 V639','led');el.push(ground(875,639));
+ path('M875 553 V531 H983 V522','led');
+ el.push('<path d="M983 515 V522" class="wire" data-segment="led"/>');
+ el.push('<path d="M971 487 L983 508 L995 487 Z" fill="#184569" stroke="#a7dafc" stroke-width="2"/><path d="M969 510 H997" stroke="#a7dafc" stroke-width="2"/><path d="M994 481 L1008 469 M1002 480 L1016 468" stroke="#63d7ff" stroke-width="2"/>');
+ path('M983 456 V482','led');part(965,423,36,31,'R4','ledR');path('M983 406 V423','led');txt(966,398,'+ Vₛ','caption');
+ txt(1005,528,'LED','small');txt(910,620,'2N3904','small');
+ // transparent probe overlays for diode / transistor / LED
+ el.push('<g data-probe="transistor"><circle cx="875" cy="581" r="39" fill="transparent" stroke="none"/></g><g data-probe="led"><rect x="965" y="476" width="38" height="45" fill="transparent" stroke="none"/></g>');
+ txt(30,681,'Blue lines = conduction paths  •  moving dots = conventional current  •  Q output feeds the diode and charging resistor','small');
+ txt(30,697,'Every LED has a separate +Vₛ → R4 → LED → transistor → ground path. Only one channel is expanded.','small');
+ svg.innerHTML=el.join('');
+ for(let i=0;i<10;i++){
+  const g=svg.querySelector(`[data-chan="${i}"]`);
+  g.addEventListener('click',()=>{selected=i;$('channel').value=i;updateSelected();});
+ }
+ svg.querySelectorAll('[data-probe]').forEach(g=>g.addEventListener('click',()=>{const value=g.getAttribute('data-probe');$('probe').value=value;probe=value;history=history.slice();render();}));
+ window.flowSegments={};
+ const branches={drive:7,cap:6,bleed:6,base:6,led:9,'555ra':5,'555rb':4,'555timing':4};
+ for(let k in branches){const nodes=[...svg.querySelectorAll(`path[data-segment="${k}"]`)];if(!nodes.length)continue;const segments=[];for(const node of nodes){const circles=[];const count=Math.max(2,Math.ceil(branches[k]/nodes.length));for(let i=0;i<count;i++){const dot=document.createElementNS(NS,'circle');dot.setAttribute('r','2.5');dot.classList.add('particle');svg.append(dot);circles.push(dot);}segments.push({node,circles,len:node.getTotalLength()});}window.flowSegments[k]=segments;}
+
+}
+function updateSelected(){const hadFault=fault!=='none';fault='none';$('fault').value='none';$('channelVal').textContent='Q'+selected;$('chLabel').textContent='Detail: Q'+selected;$('selectedQLabel').textContent='Q'+selected;if(hadFault)reset();else render();}
+function updateDiagram(){
+ const a=getValues(state);
+ const flow={drive:a.ich,cap:a.icap,bleed:a.bleed,base:a.ib,led:a.il,'555ra':a.tira,'555rb':a.tirb,'555timing':a.tirb};
+ svg.querySelectorAll('path[data-segment]').forEach(n=>{
+  const k=n.dataset.segment;
+  let amp=flow[k]||0;
+  if(k==='clock')amp=0;
+  if(k.startsWith('q'))amp=Number(k.slice(1))===state.q?1:0;
+  n.classList.toggle('on',Math.abs(amp)>2e-9 && k!=='clock'&&!k.startsWith('q'));
+  n.classList.toggle('logicOn',(k==='clock'&&state.high)||k.startsWith('q')&&amp>0);
+  n.classList.toggle('bad',(fault==='cap-short'&&['drive','cap','base','bleed','led'].includes(k))||(fault==='charge-open'&&k==='drive')||(fault==='base-open'&&k==='base')||(fault==='led-open'&&k==='led'));
+ });
+ for(let i=0;i<10;i++){
+  const v=getValues(state,i),ring=svg.querySelector(`[data-led="${i}"]`),light=svg.querySelector(`[data-light="${i}"]`),intensity=v.maxLed>0?Math.pow(v.il/v.maxLed,.7):0;
+  ring.setAttribute('stroke',i===selected?'#ffe4a0':'#506a82');ring.setAttribute('stroke-width',i===selected?'3':'2');
+  light.setAttribute('opacity',String(.08+.92*intensity));light.setAttribute('r',String(6+2.5*intensity));
+ }
+ const label=svg.querySelector('.section');
+ const names=svg.querySelectorAll('.section');if(names[3])names[3].textContent=`SELECTED CHANNEL  ·  CD4017 Q${selected}`;
+ const partKey={timerCap:'timerCap',ra:'ra',rb:'rb',fadeCap:'fadeCap',charge:'charge',bleed:'bleed',base:'base',ledR:'ledR'};
+ svg.querySelectorAll('[data-part]').forEach(n=>n.classList.toggle('selected',n.dataset.part===probe));
+ for(let [k,segments] of Object.entries(window.flowSegments)){
+  const val=flow[k]||0;
+  const ratio=Math.min(1,Math.abs(val)/(k==='led'?.003:k==='555ra'||k==='555rb'||k==='555timing'?.008:.001));
+  for(const b of segments)b.circles.forEach((dot,j)=>{
+   if(Math.abs(val)<1e-10){dot.setAttribute('opacity','0');return;}
+   let r=(particlePhase*params.particles*(.11+ratio*.6)+j/b.circles.length)%1;
+   if(val<0)r=1-r;
+   const point=b.node.getPointAtLength(r*b.len);
+   dot.setAttribute('cx',point.x.toFixed(2));dot.setAttribute('cy',point.y.toFixed(2));
+   dot.setAttribute('opacity',(.2+.8*ratio).toFixed(2));
+  });
+ }
+
+}
+function updateInfo(){
+ const a=getValues(state),val=measure(state);
+ const name=$('probe').selectedOptions[0].text;
+ $('probePoint').textContent=name;
+ const unit=mode==='v'?'V':mode==='i'?'mA':'Ω';
+ $('meter').textContent=val===null?'Not a fixed resistance':((Math.abs(val)>100000?val.toExponential(2):Math.abs(val)>=1000?val.toFixed(1):val.toFixed(3))+' '+unit);
+ $('meterHelp').textContent=mode==='r'?'Nominal resistance only; real ohmmeter requires power OFF.':mode==='v'?'Potential difference across the selected component.':'Conventional current through the selected component; negative means reversed direction.';
+ $('outRead').textContent=`Q${state.q} HIGH`;
+ $('clockRead').textContent=`555 ${state.high?'HIGH':'LOW'}`;
+ $('timeRead').textContent=`t = ${state.t.toFixed(2)} s`;
+ $('qState').textContent=`Q${selected}: ${state.q===selected?'HIGH':'LOW'}`;
+ const freq=1/(.693*(K(params.ra)+2*K(params.rb))*U(params.ct));
+ $('quick').innerHTML=`Clock: <b>${freq.toFixed(3)} Hz</b><br>Timing cap: <b>${state.timing.toFixed(3)} V</b><br>Selected fade cap: <b>${a.v.toFixed(3)} V</b><br>Base current: <b>${(1000*a.ib).toFixed(3)} mA</b><br>LED current: <b>${(1000*a.il).toFixed(3)} mA</b><br>Max LED current: <b>${(1000*a.maxLed).toFixed(3)} mA</b>`;
+ const messages={none:'Choose an open fault to see its branch go dark.','charge-open':'R1 disconnected. The selected capacitor cannot receive new pulses.','base-open':'Base resistor disconnected. Transistor cannot drive the LED.','led-open':'LED branch open. Current through the LED is zero.','cap-short':'SHORT flagged: this demonstration isolates the channel to avoid pretending the CD4017 can safely drive a short. A real short is NOT an open.'};
+ $('faultHelp').textContent=messages[fault];
+ $('scopeHelp').textContent=mode==='r'?'Resistance is nominal and does not change with time in this model. Real resistance measurements require power off.':`This is a rolling ${scopeSpan}-second graph of ${mode==='v'?'voltage':'current'} for ${name.toLowerCase()}.`;
+}
+function plot(){
+ const canvas=$('scope'),ctx=canvas.getContext('2d'),rect=canvas.getBoundingClientRect();if(!rect.width)return;
+ const dpr=Math.min(2,window.devicePixelRatio||1),w=rect.width,h=rect.height;
+ if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
+ ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+ const left=58,right=13,top=13,bottom=28,ww=w-left-right,hh=h-top-bottom;
+ const t0=Math.max(0,state.t-scopeSpan),t1=t0+scopeSpan;
+ const values=history.filter(s=>s.t>=t0-.1).map(s=>({t:s.t,v:measure(s)})).filter(s=>s.v!==null);
+ let min=0,max=mode==='r'?Math.max(1,measure(state)||1):1;
+ if(values.length){min=Math.min(0,...values.map(x=>x.v));max=Math.max(0,...values.map(x=>x.v));if(Math.abs(max-min)<1e-7){max+=1;min-=1;}let gap=(max-min)*.11;max+=gap;min-=gap;}
+ const xx=t=>left+(t-t0)/scopeSpan*ww,yy=v=>top+(max-v)/(max-min)*hh;
+ ctx.strokeStyle='#254054';ctx.lineWidth=1;ctx.fillStyle='#9fb9ca';ctx.font='11px system-ui';
+ for(let i=0;i<=4;i++){const y=top+i*hh/4;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke();const v=max-i*(max-min)/4;ctx.fillText(Math.abs(v)>1000?v.toFixed(0):v.toFixed(2),4,y+4);}
+ for(let i=0;i<=5;i++){const t=t0+i*scopeSpan/5,x=xx(t);ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,h-bottom);ctx.stroke();ctx.fillText(t.toFixed(1)+'s',Math.min(w-35,x-7),h-8);}
+ ctx.beginPath();values.forEach((p,i)=>{const x=xx(p.t),y=yy(p.v);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.lineWidth=2.5;ctx.strokeStyle='#64d8ff';ctx.stroke();
+ if(values.length){const last=values.at(-1);ctx.fillStyle='#a8efff';ctx.beginPath();ctx.arc(xx(last.t),yy(last.v),3,0,2*Math.PI);ctx.fill();}
+}
+
+function plotMiniScope(){
+ const canvas=$('miniScope');
+ if(!canvas)return;
+ const bounds=canvas.getBoundingClientRect();
+ if(bounds.width<30||bounds.height<10)return;
+ const ctx=canvas.getContext('2d'),dpr=Math.min(2,devicePixelRatio||1),w=bounds.width,h=bounds.height;
+ const W=Math.round(w*dpr),H=Math.round(h*dpr);
+ if(canvas.width!==W||canvas.height!==H){canvas.width=W;canvas.height=H;}
+ ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+ const duration=8,start=Math.max(0,state.t-duration),end=start+duration;
+ const data=history.filter(x=>x.t>=start-.1);
+ ctx.strokeStyle='#29465a';ctx.lineWidth=.7;
+ for(let i=0;i<=3;i++){ctx.beginPath();ctx.moveTo(0,i*h/3);ctx.lineTo(w,i*h/3);ctx.stroke();}
+ for(let i=0;i<=6;i++){ctx.beginPath();ctx.moveTo(i*w/6,0);ctx.lineTo(i*w/6,h);ctx.stroke();}
+ const fx=t=>(t-start)/duration*w;
+ const waves=[{color:'#61d9ff',extract:s=>Math.min(1,s.channels[selected]/Math.max(1,params.vs))},
+ {color:'#ffc979',extract:s=>{const a=getValues(s);return a.maxLed>0?Math.min(1,a.il/a.maxLed):0;}}];
+ waves.forEach(({color,extract},idx)=>{
+  ctx.strokeStyle=color;ctx.lineWidth=idx===0?2.2:1.5;
+  ctx.beginPath();let n=0;
+  data.forEach(s=>{let x=fx(s.t),y=h-4-extract(s)*(h-12);if(n++===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
+  ctx.stroke();
+ });
+}
+
+function render(){updateDiagram();updateMobile();updateInfo();if(document.querySelector('.app').dataset.active==='scope'||window.innerWidth>720)plot();else if(window.innerWidth<=720)plotMiniScope();}
+function createControls(){const root=$('parameterControls');root.innerHTML=specs.map(([key,name,unit,min,max,step])=>`<div class="control"><label for="v-${key}">${name}</label><output id="o-${key}">${params[key]} ${unit}</output><input type="range" id="v-${key}" data-key="${key}" min="${min}" max="${max}" step="${step}" value="${params[key]}"></div>`).join('');root.querySelectorAll('input').forEach(x=>x.addEventListener('input',()=>{params[x.dataset.key]=Number(x.value);$('o-'+x.dataset.key).textContent=x.value+' '+(specs.find(s=>s[0]===x.dataset.key)[2]);reset();}));}
+function animate(ms){if(!lastFrame)lastFrame=ms;const delta=Math.min(.1,Math.max(0,(ms-lastFrame)/1000));lastFrame=ms;if(!paused){const duration=delta*params.speed;const n=Math.max(1,Math.ceil(duration/.06));for(let i=0;i<n;i++){step(duration/n);sampleAcc+=duration/n;if(sampleAcc>=.04){record();sampleAcc=0;}}particlePhase+=delta*params.speed;}render();requestAnimationFrame(animate);}
+$('play').addEventListener('click',()=>{paused=!paused;$('play').textContent=paused?'▶ Play':'❚❚ Pause';});
+$('step').addEventListener('click',()=>{const period=.693*(K(params.ra)+2*K(params.rb))*U(params.ct);const n=Math.max(1,Math.ceil(period/.02));for(let i=0;i<n;i++){step(period/n);record();}render();});
+$('reset').addEventListener('click',()=>{reset();});
+$('probe').addEventListener('change',e=>{probe=e.target.value;render();});$('mode').addEventListener('change',e=>{mode=e.target.value;render();});$('span').addEventListener('change',e=>{scopeSpan=Number(e.target.value);render();});
+$('speed').addEventListener('input',e=>{params.speed=Number(e.target.value);document.querySelector('[data-val="speed"]').textContent=params.speed.toFixed(1)+'×';});
+$('particles').addEventListener('input',e=>{params.particles=Number(e.target.value);document.querySelector('[data-val="particles"]').textContent=params.particles.toFixed(1)+'×';});
+$('channel').addEventListener('input',e=>{selected=Number(e.target.value);updateSelected();});$('fault').addEventListener('change',e=>{fault=e.target.value;reset();});
+$('openMiniScope').addEventListener('click',()=>switchTab('scope'));document.querySelectorAll('[data-tab]').forEach(button=>button.addEventListener('click',()=>switchTab(button.dataset.tab)));buildMobileDiagram();buildDiagram();createControls();document.querySelector('[data-val="speed"]').textContent='1.0×';document.querySelector('[data-val="particles"]').textContent='1.0×';reset();requestAnimationFrame(animate);
+})();
+</script></body></html>
